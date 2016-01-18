@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
             formatTxt.setText("FORMAT: " + scanFormat);
             contentTxt.setText("CONTENT: " + scanContent);
         } else {
+            // Toast
             Toast toast = Toast.makeText(getApplicationContext(), "No scan data received!", Toast.LENGTH_SHORT);
             toast.show();
         }
