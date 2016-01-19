@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="textview_label_style">
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">none</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+   	<style name="textview_label_link_style">
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">none</item>
+        <item name="android:textColor">@android:color/holo_blue_bright</item>
+        <item name="android:background">@drawable/bg_button_link</item>
+        <item name="android:selectAllOnFocus">true</item>
+        <item name="android:linksClickable">true</item>
+        <item name="android:autoLink">all</item>
+    </style>
+
+    <style name="textview_text_title">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/font_size_title</item>
+    </style>
+
+    <style name="textview_text_subtitle">
+        <item name="android:textSize">@dimen/font_size_subtitle</item>
+    </style>
+
+    <style name="textview_text_subtitle_bold">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/font_size_subtitle</item>
+    </style>
+</resources>

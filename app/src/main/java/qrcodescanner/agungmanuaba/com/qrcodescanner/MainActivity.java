@@ -18,7 +18,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener{
-    private Button scanBtn;
+    private Button scanBtn, quitBtn;
     private TextView formatTxt, contentTxt;
 
     @Override
@@ -29,10 +29,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         setSupportActionBar(toolbar);
 
         scanBtn = (Button)findViewById(R.id.scan_button);
+        quitBtn = (Button)findViewById(R.id.quit_button);
         formatTxt = (TextView)findViewById(R.id.scan_format);
         contentTxt = (TextView)findViewById(R.id.scan_content);
 
         scanBtn.setOnClickListener(this);
+        quitBtn.setOnClickListener(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -68,10 +70,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
 
     @Override
     public void onClick(View v) {
-        if(v.getId()==R.id.scan_button){
-            //scan
-            IntentIntegrator scanIntegrator = new IntentIntegrator(this);
-            scanIntegrator.initiateScan();
+        switch (v.getId()){
+            case R.id.scan_button:
+                IntentIntegrator scanIntegrator = new IntentIntegrator(this);
+                scanIntegrator.initiateScan();
+                break;
+            case R.id.quit_button:
+                this.finish();
+                break;
         }
     }
 
