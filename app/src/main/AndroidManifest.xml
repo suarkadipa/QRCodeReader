@@ -18,6 +18,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- Info Activity -->
+        <activity
+            android:name=".InfoActivity"
+            android:label="Info"
+            android:configChanges="orientation|keyboardHidden|screenSize|uiMode" >
+        </activity>
+        <!-- Info Details Activity -->
+        <activity
+            android:name=".InfoDetailsActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|uiMode">
+        </activity>
     </application>
 
 </manifest>

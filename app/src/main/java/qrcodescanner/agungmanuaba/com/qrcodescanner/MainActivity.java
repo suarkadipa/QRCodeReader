@@ -7,18 +7,18 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import android.view.View.OnClickListener;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-public class MainActivity extends AppCompatActivity implements OnClickListener{
+public class MainActivity extends AppCompatActivity implements OnClickListener {
     private Button scanBtn, quitBtn;
     private TextView formatTxt, contentTxt;
 
@@ -29,10 +29,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        scanBtn = (Button)findViewById(R.id.scan_button);
-        quitBtn = (Button)findViewById(R.id.quit_button);
-        formatTxt = (TextView)findViewById(R.id.scan_format);
-        contentTxt = (TextView)findViewById(R.id.scan_content);
+        scanBtn = (Button) findViewById(R.id.scan_button);
+        quitBtn = (Button) findViewById(R.id.quit_button);
+        formatTxt = (TextView) findViewById(R.id.scan_format);
+        contentTxt = (TextView) findViewById(R.id.scan_content);
 
         scanBtn.setOnClickListener(this);
         quitBtn.setOnClickListener(this);
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.scan_button:
                 PackageManager packageManager = getApplicationContext().getPackageManager();
                 if (packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
@@ -96,16 +96,16 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
 
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (scanningResult != null) {
-                // we have a result
-                String scanContent = scanningResult.getContents();
-                String scanFormat = scanningResult.getFormatName();
+            // we have a result
+            String scanContent = scanningResult.getContents();
+            String scanFormat = scanningResult.getFormatName();
 
-//            formatTxt.setText("FORMAT: " + scanFormat);
-//            contentTxt.setText("CONTENT: " + scanContent);
+            formatTxt.setText("FORMAT: " + scanFormat);
+            contentTxt.setText("CONTENT: " + scanContent);
 
-//                Intent intent = new Intent(MainActivity.this, InfoActivity.class);
-//                intent.putExtra("qrcode_id", scanContent);
-//                startActivity(intent);
+            Intent intent = new Intent(MainActivity.this, InfoActivity.class);
+            intent.putExtra("qrcode_id", scanContent);
+            startActivity(intent);
         } else {
             // Toast
             Toast toast = Toast.makeText(getApplicationContext(), "No scan data received!", Toast.LENGTH_SHORT);
