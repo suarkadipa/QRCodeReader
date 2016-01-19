@@ -1,6 +1,7 @@
 package qrcodescanner.agungmanuaba.com.qrcodescanner;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -72,8 +73,16 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.scan_button:
-                IntentIntegrator scanIntegrator = new IntentIntegrator(this);
-                scanIntegrator.initiateScan();
+                PackageManager packageManager = getApplicationContext().getPackageManager();
+                if (packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+                    IntentIntegrator scanIntegrator = new IntentIntegrator(this);
+                    scanIntegrator.initiateScan();
+                } else {
+                    // Toast
+                    Toast toast = Toast.makeText(getApplicationContext(), "Your device has not camera feature!", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+
                 break;
             case R.id.quit_button:
                 this.finish();
@@ -84,14 +93,19 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);
+
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (scanningResult != null) {
-            // we have a result
-            String scanContent = scanningResult.getContents();
-            String scanFormat = scanningResult.getFormatName();
+                // we have a result
+                String scanContent = scanningResult.getContents();
+                String scanFormat = scanningResult.getFormatName();
 
-            formatTxt.setText("FORMAT: " + scanFormat);
-            contentTxt.setText("CONTENT: " + scanContent);
+//            formatTxt.setText("FORMAT: " + scanFormat);
+//            contentTxt.setText("CONTENT: " + scanContent);
+
+//                Intent intent = new Intent(MainActivity.this, InfoActivity.class);
+//                intent.putExtra("qrcode_id", scanContent);
+//                startActivity(intent);
         } else {
             // Toast
             Toast toast = Toast.makeText(getApplicationContext(), "No scan data received!", Toast.LENGTH_SHORT);
