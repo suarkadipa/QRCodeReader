@@ -21,12 +21,13 @@
         <!-- Info Activity -->
         <activity
             android:name=".InfoActivity"
-            android:label="Info"
+            android:label="Informasi"
             android:configChanges="orientation|keyboardHidden|screenSize|uiMode" >
         </activity>
         <!-- Info Details Activity -->
         <activity
             android:name=".InfoDetailsActivity"
+            android:label="Detail Informasi"
             android:configChanges="orientation|keyboardHidden|screenSize|uiMode">
         </activity>
     </application>
