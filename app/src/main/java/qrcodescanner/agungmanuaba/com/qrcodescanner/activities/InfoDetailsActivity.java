@@ -1,7 +1,9 @@
-package qrcodescanner.agungmanuaba.com.qrcodescanner;
+package qrcodescanner.agungmanuaba.com.qrcodescanner.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import qrcodescanner.agungmanuaba.com.qrcodescanner.R;
 
 /**
  * Created by Ari_S on 1/19/2016.

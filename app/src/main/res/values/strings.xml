@@ -5,4 +5,8 @@
     <string name="scan">Scan QR-Code</string>
     <string name="quit">Keluar</string>
     <string name="detail_info">Detail Informasi</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+    <string name="ok">OK</string>
+    <string name="send_email_using">Send Email using</string>
 </resources>

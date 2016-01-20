@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -20,13 +20,13 @@
         </activity>
         <!-- Info Activity -->
         <activity
-            android:name=".InfoActivity"
+            android:name=".activities.InfoActivity"
             android:label="Informasi"
             android:configChanges="orientation|keyboardHidden|screenSize|uiMode" >
         </activity>
         <!-- Info Details Activity -->
         <activity
-            android:name=".InfoDetailsActivity"
+            android:name=".activities.InfoDetailsActivity"
             android:label="Detail Informasi"
             android:configChanges="orientation|keyboardHidden|screenSize|uiMode">
         </activity>

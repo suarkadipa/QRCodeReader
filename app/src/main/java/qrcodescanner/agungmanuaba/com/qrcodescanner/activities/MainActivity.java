@@ -1,4 +1,4 @@
-package qrcodescanner.agungmanuaba.com.qrcodescanner;
+package qrcodescanner.agungmanuaba.com.qrcodescanner.activities;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+
+import qrcodescanner.agungmanuaba.com.qrcodescanner.R;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
     private Button scanBtn, quitBtn;
