@@ -36,4 +36,25 @@ public class InfoActivity extends AppCompatActivity implements OnClickListener {
             startActivity(intent);
         }
     }
+
+//    try {
+//        String url = "/ICD10Service.svc/geticd10list/";
+//        HttpClient.getInstance().get(LoginActivity.this, url, new JsonHttpResponseHandler() {
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+//                super.onSuccess(statusCode, headers, response);
+//                 do what you to do with the UI here
+//            }
+//
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers,
+//                                  String responseBody, Throwable e) {
+//            }
+//
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+//            }
+//        });
+//    } catch (Exception ex) {
+//    }
 }
