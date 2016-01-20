@@ -18,6 +18,8 @@
     <style name="textview_text_title">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/font_size_title</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_gravity">center_horizontal</item>
     </style>
 
     <style name="textview_text_subtitle">

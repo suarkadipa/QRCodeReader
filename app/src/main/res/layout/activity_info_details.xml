@@ -10,9 +10,33 @@
 
     <TextView
         android:id="@+id/title_info_detail_text"
+        style="@style/textview_text_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_bottom"
+        android:text="@string/title" />
+
+    <ImageView
+        android:id="@+id/infoImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/margin_bottom"
+        android:src="@drawable/image" />
+
+    <TextView
+        android:id="@+id/info_description_text"
         style="@style/textview_text_subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/margin_bottom"
+        android:text="@string/title" />
+
+    <TextView
+        android:id="@+id/info_related_text"
+        style="@style/textview_text_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_bottom"
         android:text="@string/title" />
 </LinearLayout>
