@@ -81,8 +81,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             case R.id.scan_button:
                 PackageManager packageManager = getApplicationContext().getPackageManager();
                 if (packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-                    IntentIntegrator scanIntegrator = new IntentIntegrator(this);
-                    scanIntegrator.initiateScan();
+                    IntentIntegrator integrator = new IntentIntegrator(this);
+                    integrator.setPrompt(getString(R.string.scan_prompt));
+                    integrator.setCaptureActivity(CaptureActivityAnyOrientation.class);
+                    integrator.setOrientationLocked(false);
+                    integrator.initiateScan();
                 } else {
                     // Toast
                     Toast toast = Toast.makeText(getApplicationContext(), "Your device has not camera feature!", Toast.LENGTH_SHORT);

@@ -9,4 +9,5 @@
     <string name="no">NO</string>
     <string name="ok">OK</string>
     <string name="send_email_using">Send Email using</string>
+    <string name="scan_prompt">Cocokkan QR-Code</string>
 </resources>
