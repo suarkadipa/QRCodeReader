@@ -51,4 +51,22 @@
         android:layout_below="@id/scan_format"
         android:layout_centerHorizontal="true"
         android:textIsSelectable="true" />
+
+    <Button
+        android:id="@+id/test_info_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/scan_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="Test Info Page" />
+
+    <Button
+        android:id="@+id/test_map_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/test_info_button"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="Test Maps" />
 </RelativeLayout>
