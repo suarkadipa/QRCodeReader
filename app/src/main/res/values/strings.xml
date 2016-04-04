@@ -10,4 +10,23 @@
     <string name="ok">OK</string>
     <string name="send_email_using">Send Email using</string>
     <string name="scan_prompt">Cocokkan QR-Code</string>
+
+    <string name="info_budaya">Budaya</string>
+    <string name="info_kategori">Kategori</string>
+    <string name="info_deskripsi">Deskripsi</string>
+    <string name="info_pembuat">Pembuat</string>
+    <string name="info_tempat_penyimpanan">Tempat Penyimpanan</string>
+    <string name="info_teknik_pembuatan">Teknik Pembuatan</string>
+    <string name="info_dimensi">Panjang/Lebar/Tinggi</string>
+    <string name="info_provinsi">Provinsi</string>
+    <string name="info_kabupaten">Kabupaten</string>
+    <string name="info_kondisi">Kondisi</string>
+    <string name="info_lat_long">Latidude,Longitude</string>
+    <string name="info_kontributor">Kontributor</string>
+    <string name="info_tanggal_update">Tanggal Update</string>
+    <string name="mohon_tunggu">Mohon tunggu...</string>
+    <string name="empty_value">Data kosong</string>
+
+    <string name="json_item_details_url">getItemDetails.php?id=</string>
+    <string name="json_related_item_url">getRelatedItem.php?id=</string>
 </resources>

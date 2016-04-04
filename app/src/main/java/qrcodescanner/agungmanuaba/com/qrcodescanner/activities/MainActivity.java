@@ -97,8 +97,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 this.finish();
                 break;
             case R.id.test_info_button:
-                Intent intent1 = new Intent(MainActivity.this, InfoActivity.class);
-                intent1.putExtra("qrcode_id", "");
+                Intent intent1 = new Intent(MainActivity.this, InfoDetailsActivity.class);
+                intent1.putExtra("qrcode_id", "K0003");
                 startActivity(intent1);
                 break;
             case R.id.test_map_button:
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             formatTxt.setText("FORMAT: " + scanFormat);
             contentTxt.setText("CONTENT: " + scanContent);
 
-            Intent intent = new Intent(MainActivity.this, InfoActivity.class);
+            Intent intent = new Intent(MainActivity.this, InfoDetailsActivity.class);
             intent.putExtra("qrcode_id", scanContent);
             startActivity(intent);
         } else {
