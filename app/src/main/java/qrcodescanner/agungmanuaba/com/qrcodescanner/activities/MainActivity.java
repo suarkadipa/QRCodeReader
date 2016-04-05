@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -21,8 +20,7 @@ import com.google.zxing.integration.android.IntentResult;
 import qrcodescanner.agungmanuaba.com.qrcodescanner.R;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
-    private Button scanBtn, quitBtn, testInfoBtn, testMapsBtn;
-    private TextView formatTxt, contentTxt;
+    private Button scanBtn, quitBtn, testInfoBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +31,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         scanBtn = (Button) findViewById(R.id.scan_button);
         quitBtn = (Button) findViewById(R.id.quit_button);
-        formatTxt = (TextView) findViewById(R.id.scan_format);
-        contentTxt = (TextView) findViewById(R.id.scan_content);
         testInfoBtn = (Button) findViewById(R.id.test_info_button);
-        testMapsBtn = (Button) findViewById(R.id.test_map_button);
 
         scanBtn.setOnClickListener(this);
         quitBtn.setOnClickListener(this);
         testInfoBtn.setOnClickListener(this);
-        testMapsBtn.setOnClickListener(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -101,11 +95,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 intent1.putExtra("qrcode_id", "K0003");
                 startActivity(intent1);
                 break;
-            case R.id.test_map_button:
-                Intent intent2 = new Intent(MainActivity.this, InfoMapsActivity.class);
-                intent2.putExtra("qrcode_id", "");
-                startActivity(intent2);
-                break;
         }
     }
 
@@ -115,10 +104,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         if (scanningResult != null) {
             // we have a result
             String scanContent = scanningResult.getContents();
-            String scanFormat = scanningResult.getFormatName();
-
-            formatTxt.setText("FORMAT: " + scanFormat);
-            contentTxt.setText("CONTENT: " + scanContent);
 
             Intent intent = new Intent(MainActivity.this, InfoDetailsActivity.class);
             intent.putExtra("qrcode_id", scanContent);

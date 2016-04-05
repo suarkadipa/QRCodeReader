@@ -4,9 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
 import android.text.SpannableString;
-import android.text.method.LinkMovementMethod;
 import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.Button;
@@ -112,10 +110,8 @@ public class InfoDetailsActivity extends AppCompatActivity {
                                 JSONObject itemDetails = itemDetailsArray.getJSONObject(0);
                                 setUI(itemDetails);
                             } catch (JSONException ex) {
-//                                Common.toastIt(InfoDetailsActivity.this, ex.getMessage());
                                 setErrorInfo();
                             } catch (Exception ex) {
-//                                Common.toastIt(InfoDetailsActivity.this, ex.getMessage());
                                 setErrorInfo();
                             }
                         }
@@ -123,14 +119,12 @@ public class InfoDetailsActivity extends AppCompatActivity {
                         @Override
                         public void onFailure(int statusCode, Header[] headers,
                                               String responseBody, Throwable e) {
-//                            Common.toastIt(InfoDetailsActivity.this, e.getMessage());
                             setErrorInfo();
                         }
 
                         @Override
                         public void onFailure(int statusCode, Header[] headers, Throwable
                                 throwable, JSONObject errorResponse) {
-//                            Common.toastIt(InfoDetailsActivity.this, errorResponse.toString());
                             setErrorInfo();
                         }
                     }
@@ -138,11 +132,9 @@ public class InfoDetailsActivity extends AppCompatActivity {
             );
         } catch (JSONException e) {
             e.printStackTrace();
-//            Common.toastIt(InfoDetailsActivity.this, e.getMessage());
             setErrorInfo();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-//            Common.toastIt(InfoDetailsActivity.this, e.getMessage());
             setErrorInfo();
         }
     }

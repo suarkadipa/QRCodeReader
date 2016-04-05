@@ -343,7 +343,7 @@
     <LinearLayout
         android:id="@+id/info_error_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_top"
         android:gravity="center"
         android:orientation="vertical"
@@ -351,11 +351,11 @@
 
         <TextView
             android:id="@+id/info_error_text"
-            style="@style/info_text_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_bottom"
-            android:text="@string/empty_value" />
+            android:text="@string/empty_value"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/info_quit_button"
