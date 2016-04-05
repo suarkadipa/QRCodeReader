@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -45,8 +47,11 @@ public class InfoDetailsActivity extends AppCompatActivity {
     private TextView mInfoKontributor;
     private TextView minfoTanggalUpdate;
     private ProgressDialog dialog;
-    private LinearLayout mInfoDetailsLayout;
+    private ScrollView mInfoDetailsLayout;
     private LinearLayout mInfoRelatedLL;
+    private TextView mTvError;
+    private LinearLayout mInfoErrorLayout;
+    private Button mQuitButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +60,7 @@ public class InfoDetailsActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.activity_open_translate,
                 R.anim.slide_right_out);
 
-        mInfoDetailsLayout = (LinearLayout) findViewById(R.id.info_details_layout);
+        mInfoDetailsLayout = (ScrollView) findViewById(R.id.info_details_layout);
         mInfoGambar = (SmartImageView) findViewById(R.id.info_gambar);
         mInfoBudaya = (TextView) findViewById(R.id.info_budaya);
         mInfoKategori = (TextView) findViewById(R.id.info_kategori);
@@ -72,6 +77,10 @@ public class InfoDetailsActivity extends AppCompatActivity {
         minfoTanggalUpdate = (TextView) findViewById(R.id.info_tanggal_update);
 
         mInfoRelatedLL = (LinearLayout) findViewById(R.id.info_related);
+
+        mInfoErrorLayout = (LinearLayout) findViewById(R.id.info_error_layout);
+        mTvError = (TextView) findViewById(R.id.info_error_text);
+        mQuitButton = (Button) findViewById(R.id.info_quit_button);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null && extras.containsKey("qrcode_id")) {
@@ -100,32 +109,38 @@ public class InfoDetailsActivity extends AppCompatActivity {
                                 JSONObject itemDetails = itemDetailsArray.getJSONObject(0);
                                 setUI(itemDetails);
                             } catch (JSONException ex) {
-                                Common.toastIt(InfoDetailsActivity.this, ex.getMessage());
+//                                Common.toastIt(InfoDetailsActivity.this, ex.getMessage());
+                                setErrorInfo();
                             } catch (Exception ex) {
-                                Common.toastIt(InfoDetailsActivity.this, ex.getMessage());
+//                                Common.toastIt(InfoDetailsActivity.this, ex.getMessage());
+                                setErrorInfo();
                             }
                         }
 
                         @Override
                         public void onFailure(int statusCode, Header[] headers,
                                               String responseBody, Throwable e) {
-                            Common.toastIt(InfoDetailsActivity.this, e.getMessage());
+//                            Common.toastIt(InfoDetailsActivity.this, e.getMessage());
+                            setErrorInfo();
                         }
 
                         @Override
                         public void onFailure(int statusCode, Header[] headers, Throwable
                                 throwable, JSONObject errorResponse) {
-                            Common.toastIt(InfoDetailsActivity.this, errorResponse.toString());
+//                            Common.toastIt(InfoDetailsActivity.this, errorResponse.toString());
+                            setErrorInfo();
                         }
                     }
 
             );
         } catch (JSONException e) {
             e.printStackTrace();
-            Common.toastIt(InfoDetailsActivity.this, e.getMessage());
+//            Common.toastIt(InfoDetailsActivity.this, e.getMessage());
+            setErrorInfo();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-            Common.toastIt(InfoDetailsActivity.this, e.getMessage());
+//            Common.toastIt(InfoDetailsActivity.this, e.getMessage());
+            setErrorInfo();
         }
     }
 
@@ -171,12 +186,14 @@ public class InfoDetailsActivity extends AppCompatActivity {
                                         mInfoRelatedLL.addView(mInfoRelatedLayout);
                                     }
                                 } else {
-                                    Common.toastIt(InfoDetailsActivity.this, getString(R.string.empty_value));
+                                    setErrorInfo();
                                 }
                             } catch (JSONException ex) {
-                                Common.toastIt(InfoDetailsActivity.this, ex.getMessage());
+//                                Common.toastIt(InfoDetailsActivity.this, ex.getMessage());
+                                setErrorInfo();
                             } catch (Exception ex) {
-                                Common.toastIt(InfoDetailsActivity.this, ex.getMessage());
+//                                Common.toastIt(InfoDetailsActivity.this, ex.getMessage());
+                                setErrorInfo();
                             }
                         }
 
@@ -196,11 +213,26 @@ public class InfoDetailsActivity extends AppCompatActivity {
             );
         } catch (JSONException e) {
             e.printStackTrace();
-            Common.toastIt(InfoDetailsActivity.this, e.getMessage());
+            setErrorInfo();
+//            Common.toastIt(InfoDetailsActivity.this, e.getMessage());
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-            Common.toastIt(InfoDetailsActivity.this, e.getMessage());
+            setErrorInfo();
+//            Common.toastIt(InfoDetailsActivity.this, e.getMessage());
         }
+    }
+
+    private void setErrorInfo() {
+        mInfoErrorLayout.setVisibility(View.VISIBLE);
+        mTvError.setText(getString(R.string.empty_data));
+        mQuitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        Common.hideWaitView(dialog);
     }
 
     private void setUI(JSONObject itemDetails) {

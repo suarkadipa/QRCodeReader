@@ -45,7 +45,7 @@ public class Constants {
     public static final String K_FIELD_IS_NUMERIC_ONLY = "isNumericOnly";
     public static final String K_FIELD_OPTIONS = "options";
 
-    public static final String BASE_URL = "http://10.0.3.2/emuseum/admin/";
+    public static final String BASE_URL = "http://emuseum.16mb.com/emuseum/admin/";
     public static final String SERVICE_URL = BASE_URL + "Mobileserver/";
     public static final String IMAGE_URL = BASE_URL + "gambar/koleksi/";
 }
