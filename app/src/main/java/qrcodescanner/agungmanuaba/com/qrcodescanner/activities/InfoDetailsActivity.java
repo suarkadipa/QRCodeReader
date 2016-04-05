@@ -1,10 +1,13 @@
 package qrcodescanner.agungmanuaba.com.qrcodescanner.activities;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -176,11 +179,25 @@ public class InfoDetailsActivity extends AppCompatActivity {
                                         mInfoRelatedLayout.setId(i);
 
                                         TextView mNama = (TextView) mInfoRelatedLayout.findViewById(R.id.info_related_nama);
+                                        final String finalNamaKoleksi = namaKoleksi;
+                                        final double finalLat = -8.698879;
+                                        final double finalLong = 115.199851;
+                                        mNama.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                Intent mapIntent = new Intent(InfoDetailsActivity.this, InfoMapsActivity.class);
+                                                mapIntent.putExtra("item_name", finalNamaKoleksi);
+                                                mapIntent.putExtra("latitude", finalLat);
+                                                mapIntent.putExtra("longitude", finalLong);
+                                                startActivity(mapIntent);
+                                            }
+                                        });
+
                                         TextView mKeterangan = (TextView) mInfoRelatedLayout.findViewById(R.id.info_related_keterangan);
 
-                                        mNama.setMovementMethod(LinkMovementMethod.getInstance());
-                                        String text = "<a href='http://www.google.com'>" + namaKoleksi + "</a>";
-                                        mNama.setText(Html.fromHtml(text));
+                                        SpannableString content = new SpannableString(namaKoleksi);
+                                        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+                                        mNama.setText(content);
                                         mKeterangan.setText(keterangan);
 
                                         mInfoRelatedLL.addView(mInfoRelatedLayout);
@@ -189,10 +206,8 @@ public class InfoDetailsActivity extends AppCompatActivity {
                                     setErrorInfo();
                                 }
                             } catch (JSONException ex) {
-//                                Common.toastIt(InfoDetailsActivity.this, ex.getMessage());
                                 setErrorInfo();
                             } catch (Exception ex) {
-//                                Common.toastIt(InfoDetailsActivity.this, ex.getMessage());
                                 setErrorInfo();
                             }
                         }
@@ -214,11 +229,9 @@ public class InfoDetailsActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
             setErrorInfo();
-//            Common.toastIt(InfoDetailsActivity.this, e.getMessage());
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
             setErrorInfo();
-//            Common.toastIt(InfoDetailsActivity.this, e.getMessage());
         }
     }
 

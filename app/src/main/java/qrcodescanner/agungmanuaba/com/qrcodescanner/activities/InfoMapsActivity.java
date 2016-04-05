@@ -31,6 +31,9 @@ public class InfoMapsActivity extends AppCompatActivity implements GoogleApiClie
     GoogleMap mMap;
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
+    private String mItemName;
+    private double mLatitude;
+    private double mLongitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,14 @@ public class InfoMapsActivity extends AppCompatActivity implements GoogleApiClie
         setContentView(R.layout.activity_info_maps);
         overridePendingTransition(R.anim.activity_open_translate,
                 R.anim.slide_right_out);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null && extras.containsKey("item_name")) {
+            mItemName = extras.getString("item_name");
+            mLatitude = extras.getDouble("latitude");
+            mLongitude = extras.getDouble("longitude");
+        }
+
         buildGoogleApiClient();
     }
 
@@ -104,10 +115,12 @@ public class InfoMapsActivity extends AppCompatActivity implements GoogleApiClie
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (mLastLocation != null) {
             //getting the latitude value
-            double latitudeValue=mLastLocation.getLatitude();
+//            double latitudeValue=mLastLocation.getLatitude();
+            double latitudeValue = mLatitude;
             Log.d("value",""+latitudeValue);
             //getting the longitude value
-            double longitudeValue=mLastLocation.getLongitude();
+//            double longitudeValue=mLastLocation.getLongitude();
+            double longitudeValue = mLongitude;
             if(checkServices()){
                 if(initMap()){
 
@@ -120,7 +133,7 @@ public class InfoMapsActivity extends AppCompatActivity implements GoogleApiClie
 
                     //Setting up the marker
                     MarkerOptions marker= new MarkerOptions()
-                            .title("Dharmapuri")
+                            .title(mItemName)
                             .position(new LatLng(latitudeValue,longitudeValue))
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
                     mMap.addMarker(marker);
