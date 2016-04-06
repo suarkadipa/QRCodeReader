@@ -20,29 +20,30 @@ import com.google.zxing.integration.android.IntentResult;
 import qrcodescanner.agungmanuaba.com.qrcodescanner.R;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
-    private Button scanBtn, quitBtn, testInfoBtn;
+    private Button scanBtn, quitBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
         scanBtn = (Button) findViewById(R.id.scan_button);
         quitBtn = (Button) findViewById(R.id.quit_button);
-        testInfoBtn = (Button) findViewById(R.id.test_info_button);
 
         scanBtn.setOnClickListener(this);
         quitBtn.setOnClickListener(this);
-        testInfoBtn.setOnClickListener(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                Intent intent1 = new Intent(MainActivity.this, InfoDetailsActivity.class);
+                intent1.putExtra("qrcode_id", "K0003");
+                startActivity(intent1);
             }
         });
     }
@@ -89,11 +90,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                 break;
             case R.id.quit_button:
                 this.finish();
-                break;
-            case R.id.test_info_button:
-                Intent intent1 = new Intent(MainActivity.this, InfoDetailsActivity.class);
-                intent1.putExtra("qrcode_id", "K0003");
-                startActivity(intent1);
                 break;
         }
     }

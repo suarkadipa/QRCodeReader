@@ -157,6 +157,8 @@ public class InfoDetailsActivity extends AppCompatActivity {
                                         JSONObject row = relatedItemsArray.getJSONObject(i);
                                         String namaKoleksi = row.getString("nama_koleksi");
                                         String keterangan = row.getString("keterangan");
+                                        double latitude = row.getDouble("latitude");
+                                        double longitude = row.getDouble("longitude");
 
                                         if (namaKoleksi.isEmpty()) {
                                             namaKoleksi = getString(R.string.empty_value);
@@ -172,8 +174,8 @@ public class InfoDetailsActivity extends AppCompatActivity {
 
                                         TextView mNama = (TextView) mInfoRelatedLayout.findViewById(R.id.info_related_nama);
                                         final String finalNamaKoleksi = namaKoleksi;
-                                        final double finalLat = -8.698879;
-                                        final double finalLong = 115.199851;
+                                        final double finalLat = latitude;
+                                        final double finalLong = longitude;
                                         mNama.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View v) {
