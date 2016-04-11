@@ -46,13 +46,14 @@ public class InfoDetailsActivity extends AppCompatActivity {
     private TextView mInfoKondisi;
     private TextView mInfoLatLong;
     private TextView mInfoKontributor;
-    private TextView minfoTanggalUpdate;
+    private TextView mInfoTanggalUpdate;
     private ProgressDialog dialog;
     private ScrollView mInfoDetailsLayout;
     private LinearLayout mInfoRelatedLL;
     private TextView mTvError;
     private LinearLayout mInfoErrorLayout;
     private Button mQuitButton;
+    private TextView mInfoBendaTerkait;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +76,8 @@ public class InfoDetailsActivity extends AppCompatActivity {
         mInfoKondisi = (TextView) findViewById(R.id.info_kondisi);
         mInfoLatLong = (TextView) findViewById(R.id.info_lat_long);
         mInfoKontributor = (TextView) findViewById(R.id.info_kontributor);
-        minfoTanggalUpdate = (TextView) findViewById(R.id.info_tanggal_update);
+        mInfoTanggalUpdate = (TextView) findViewById(R.id.info_tanggal_update);
+        mInfoBendaTerkait = (TextView) findViewById(R.id.info_related_title);
 
         mInfoRelatedLL = (LinearLayout) findViewById(R.id.info_related);
 
@@ -110,32 +112,32 @@ public class InfoDetailsActivity extends AppCompatActivity {
                                 JSONObject itemDetails = itemDetailsArray.getJSONObject(0);
                                 setUI(itemDetails);
                             } catch (JSONException ex) {
-                                setErrorInfo();
+                                setErrorInfoItemDetails();
                             } catch (Exception ex) {
-                                setErrorInfo();
+                                setErrorInfoItemDetails();
                             }
                         }
 
                         @Override
                         public void onFailure(int statusCode, Header[] headers,
                                               String responseBody, Throwable e) {
-                            setErrorInfo();
+                            setErrorInfoItemDetails();
                         }
 
                         @Override
                         public void onFailure(int statusCode, Header[] headers, Throwable
                                 throwable, JSONObject errorResponse) {
-                            setErrorInfo();
+                            setErrorInfoItemDetails();
                         }
                     }
 
             );
         } catch (JSONException e) {
             e.printStackTrace();
-            setErrorInfo();
+            setErrorInfoItemDetails();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-            setErrorInfo();
+            setErrorInfoItemDetails();
         }
     }
 
@@ -197,12 +199,12 @@ public class InfoDetailsActivity extends AppCompatActivity {
                                         mInfoRelatedLL.addView(mInfoRelatedLayout);
                                     }
                                 } else {
-                                    setErrorInfo();
+                                    setErrorInfoRelatedItem();
                                 }
                             } catch (JSONException ex) {
-                                setErrorInfo();
+                                setErrorInfoRelatedItem();
                             } catch (Exception ex) {
-                                setErrorInfo();
+                                setErrorInfoRelatedItem();
                             }
                         }
 
@@ -222,14 +224,27 @@ public class InfoDetailsActivity extends AppCompatActivity {
             );
         } catch (JSONException e) {
             e.printStackTrace();
-            setErrorInfo();
+            setErrorInfoItemDetails();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-            setErrorInfo();
+            setErrorInfoItemDetails();
         }
     }
 
-    private void setErrorInfo() {
+    private void setErrorInfoRelatedItem() {
+        // instance new layout for related info
+        View mInfoRelatedLayout = getLayoutInflater().inflate(R.layout.info_details_related_item, null);
+
+        TextView mNama = (TextView) mInfoRelatedLayout.findViewById(R.id.info_related_nama);
+        mNama.setVisibility(View.GONE);
+
+        TextView mKeterangan = (TextView) mInfoRelatedLayout.findViewById(R.id.info_related_keterangan);
+        mKeterangan.setText(getString(R.string.empty_data));
+
+        mInfoRelatedLL.addView(mInfoRelatedLayout);
+    }
+
+    private void setErrorInfoItemDetails() {
         mInfoErrorLayout.setVisibility(View.VISIBLE);
         mTvError.setText(getString(R.string.empty_data));
         mQuitButton.setOnClickListener(new View.OnClickListener() {
@@ -271,8 +286,9 @@ public class InfoDetailsActivity extends AppCompatActivity {
             mInfoProvinsi.setText(id_prov_pembuatan);
             mInfoKabupaten.setText(id_kab_pembuatan);
             mInfoDimensi.setText(dimensi);
-            minfoTanggalUpdate.setText(tanggal_update);
+            mInfoTanggalUpdate.setText(tanggal_update);
             mInfoKontributor.setText(kontributor);
+            mInfoBendaTerkait.setText(getString(R.string.info_benda_terkait) + " " + budaya);
 
             mInfoDetailsLayout.setVisibility(View.VISIBLE);
             Common.hideWaitView(dialog);
