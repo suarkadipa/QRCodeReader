@@ -161,8 +161,8 @@ public class InfoActivity extends AppCompatActivity {
             String kategori = itemDetails.getString("nama_kategori");
             String tempat_penyimpanan = itemDetails.getString("tempat_penyimpanan");
             String deskripsi = itemDetails.getString("deskripsi");
-            final String longitude = itemDetails.getString("longtitude");
-            final String latitude = itemDetails.getString("latitude");
+            final double longitude = itemDetails.getDouble("longtitude");
+            final double latitude = itemDetails.getDouble("latitude");
             String id_prov_pembuatan = itemDetails.getString("id_prov_pembuatan");
             String id_kab_pembuatan = itemDetails.getString("id_kab_pembuatan");
             String id_unit_ukuran = itemDetails.getString("nama_unit_ukuran");
@@ -172,7 +172,7 @@ public class InfoActivity extends AppCompatActivity {
             String tanggal_update = itemDetails.getString("modified_date");
             String kontributor = itemDetails.getString("username");
             String dimensi = panjang + "/" + lebar + "/" + tinggi + " " + id_unit_ukuran;
-            String latLong = latitude + "," + longitude;
+            String latLong = String.valueOf(latitude) + "," + String.valueOf(longitude);
 
             String imageUrl = Constants.IMAGE_URL + gambar;
             mInfoBudaya.setText(budaya);
