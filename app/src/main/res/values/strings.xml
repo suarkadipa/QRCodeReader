@@ -28,6 +28,7 @@
     <string name="empty_value">Data kosong</string>
     <string name="empty_data">Data tidak ditemukan</string>
     <string name="info_benda_terkait">Item Terkait dengan Benda</string>
+    <string name="cek_lokasi">Cek lokasi</string>
 
     <string name="json_item_details_url">getItemDetails.php?id=</string>
     <string name="json_related_item_url">getRelatedItem.php?id=</string>

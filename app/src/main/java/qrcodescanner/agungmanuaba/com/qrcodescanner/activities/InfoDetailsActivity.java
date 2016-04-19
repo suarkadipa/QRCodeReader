@@ -157,10 +157,9 @@ public class InfoDetailsActivity extends AppCompatActivity {
                                 if (arrayLength > 0) {
                                     for (int i = 0; i < arrayLength; i++) {
                                         JSONObject row = relatedItemsArray.getJSONObject(i);
+                                        final String idKoleksi = row.getString("id_koleksi1");
                                         String namaKoleksi = row.getString("nama_koleksi");
                                         String keterangan = row.getString("keterangan");
-                                        double latitude = row.getDouble("latitude");
-                                        double longitude = row.getDouble("longitude");
 
                                         if (namaKoleksi.isEmpty()) {
                                             namaKoleksi = getString(R.string.empty_value);
@@ -175,16 +174,12 @@ public class InfoDetailsActivity extends AppCompatActivity {
                                         mInfoRelatedLayout.setId(i);
 
                                         TextView mNama = (TextView) mInfoRelatedLayout.findViewById(R.id.info_related_nama);
-                                        final String finalNamaKoleksi = namaKoleksi;
-                                        final double finalLat = latitude;
-                                        final double finalLong = longitude;
+
                                         mNama.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View v) {
-                                                Intent mapIntent = new Intent(InfoDetailsActivity.this, InfoMapsActivity.class);
-                                                mapIntent.putExtra("item_name", finalNamaKoleksi);
-                                                mapIntent.putExtra("latitude", finalLat);
-                                                mapIntent.putExtra("longitude", finalLong);
+                                                Intent mapIntent = new Intent(InfoDetailsActivity.this, InfoActivity.class);
+                                                mapIntent.putExtra("id_koleksi", idKoleksi);
                                                 startActivity(mapIntent);
                                             }
                                         });
