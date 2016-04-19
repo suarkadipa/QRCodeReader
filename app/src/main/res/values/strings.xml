@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">QRCodeScanner</string>
+    <string name="app_name">E-Museum</string>
     <string name="action_settings">Settings</string>
     <string name="title">E-Museum Jaringan Semantik</string>
     <string name="scan">Scan QR-Code</string>
