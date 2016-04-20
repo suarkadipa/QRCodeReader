@@ -49,6 +49,7 @@
             android:name=".activities.InfoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|uiMode"
             android:label="Informasi"></activity>
+
         <!-- Info Details Activity -->
         <activity
             android:name=".activities.InfoDetailsActivity"
@@ -63,7 +64,7 @@
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyCKL5bQMtyqaZrl6OxLHnSYAbU5JYImZPA" />
+            android:value="AIzaSyDLr199uNtWQMrXsEHi-1opYQcW0l-KGqE" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
