@@ -18,6 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/margin_bottom"
         android:text="@string/title" />
 
     <Button
@@ -26,6 +27,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/quit_button"
         android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_top"
         android:text="@string/scan" />
 
     <Button
@@ -35,4 +38,30 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="@string/quit" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/scan_button"
+        android:layout_alignLeft="@+id/quit_button"
+        android:layout_alignStart="@+id/quit_button"
+        android:layout_below="@+id/title_text"
+        android:layout_marginBottom="@dimen/margin_bottom"
+        android:layout_marginLeft="@dimen/margin_top"
+        android:src="@drawable/logo" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/scan_button"
+        android:layout_alignEnd="@+id/quit_button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/quit_button"
+        android:layout_below="@+id/title_text"
+        android:layout_marginBottom="@dimen/margin_bottom"
+        android:layout_marginRight="@dimen/margin_top"
+        android:src="@drawable/logo2" />
 </RelativeLayout>
