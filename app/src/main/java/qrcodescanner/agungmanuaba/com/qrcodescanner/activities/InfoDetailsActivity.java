@@ -7,9 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -54,6 +56,14 @@ public class InfoDetailsActivity extends AppCompatActivity {
     private LinearLayout mInfoErrorLayout;
     private Button mQuitButton;
     private TextView mInfoBendaTerkait;
+    private Spinner mSpinnerKategori;
+    private String itemNamaKoleksi;
+    private String itemNamaKategori;
+    private String itemNamaPembuat;
+    private String itemTempatPenyimpanan;
+    private String itemKondisi;
+    private String itemProvinsi;
+    private String itemKabupaten;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +90,45 @@ public class InfoDetailsActivity extends AppCompatActivity {
         mInfoBendaTerkait = (TextView) findViewById(R.id.info_related_title);
 
         mInfoRelatedLL = (LinearLayout) findViewById(R.id.info_related);
+        mSpinnerKategori = (Spinner) findViewById(R.id.spinner_kategori);
+        mSpinnerKategori.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String selectedString = adapterView.getItemAtPosition(i).toString();
+                switch (selectedString) {
+                    case Constants.KAT_NAMA_KOLEKSI:
+                        requestRelatedItem(itemId, Constants.KAT_OPT_NAMA_KOLEKSI, itemNamaKoleksi);
+                        break;
+                    case Constants.KAT_KATEGORI:
+                        requestRelatedItem(itemId, Constants.KAT_OPT_KATEGORI, itemNamaKategori);
+                        break;
+                    case Constants.KAT_NAMA_PEMBUAT:
+                        requestRelatedItem(itemId, Constants.KAT_OPT_NAMA_PEMBUAT, itemNamaPembuat);
+                        break;
+                    case Constants.KAT_TEMPAT_PENYIMPANAN:
+                        requestRelatedItem(itemId, Constants.KAT_OPT_TEMPAT_PENYIMPANAN, itemTempatPenyimpanan);
+                        break;
+                    case Constants.KAT_KONDISI:
+                        requestRelatedItem(itemId, Constants.KAT_OPT_KONDISI, itemKondisi);
+                        break;
+                    case Constants.KAT_PROVINSI:
+                        requestRelatedItem(itemId, Constants.KAT_OPT_PROVINSI, itemProvinsi);
+                        break;
+                    case Constants.KAT_KABUPATEN:
+                        requestRelatedItem(itemId, Constants.KAT_OPT_KABUPATEN, itemKabupaten);
+                        break;
+
+                    default:
+                        requestRelatedItem(itemId, Constants.KAT_OPT_NAMA_KOLEKSI, itemNamaKoleksi);
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         mInfoErrorLayout = (LinearLayout) findViewById(R.id.info_error_layout);
         mTvError = (TextView) findViewById(R.id.info_error_text);
@@ -93,7 +142,6 @@ public class InfoDetailsActivity extends AppCompatActivity {
             dialog = Common.showWaitView(InfoDetailsActivity.this, getString(R.string.mohon_tunggu));
 
             requestItemDetails(itemId);
-            requestRelatedItem(itemId);
         }
     }
 
@@ -141,9 +189,9 @@ public class InfoDetailsActivity extends AppCompatActivity {
         }
     }
 
-    private void requestRelatedItem(String itemId) {
+    private void requestRelatedItem(String itemId, String option, String val) {
         String baseUrl = ApplicationSettings.getServiceUrl(getApplicationContext());
-        String url = baseUrl + (getString(R.string.json_related_item_url)) + itemId;
+        String url = baseUrl + (getString(R.string.json_auto_related_item_url)) + itemId + "&option="+option+"&val="+val;
 
         try {
             HttpClient.getInstance().get(InfoDetailsActivity.this, url, new JsonHttpResponseHandler() {
@@ -151,15 +199,18 @@ public class InfoDetailsActivity extends AppCompatActivity {
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                             super.onSuccess(statusCode, headers, response);
 
+                            // clear info related layout
+                            mInfoRelatedLL.removeAllViews();
+
                             try {
                                 JSONArray relatedItemsArray = response.getJSONArray("data");
                                 int arrayLength = relatedItemsArray.length();
                                 if (arrayLength > 0) {
                                     for (int i = 0; i < arrayLength; i++) {
                                         JSONObject row = relatedItemsArray.getJSONObject(i);
-                                        final String idKoleksi = row.getString("id_koleksi1");
+                                        final String idKoleksi = row.getString("id_koleksi");
                                         String namaKoleksi = row.getString("nama_koleksi");
-                                        String keterangan = row.getString("keterangan");
+                                        String keterangan = row.getString("deskripsi");
 
                                         if (namaKoleksi.isEmpty()) {
                                             namaKoleksi = getString(R.string.empty_value);
@@ -255,14 +306,16 @@ public class InfoDetailsActivity extends AppCompatActivity {
     private void setUI(JSONObject itemDetails) {
         try {
             String gambar = itemDetails.getString("gambar");
-            String budaya = itemDetails.getString("nama_koleksi");
-            String kategori = itemDetails.getString("nama_kategori");
-            String tempat_penyimpanan = itemDetails.getString("tempat_penyimpanan");
+            itemNamaKoleksi = itemDetails.getString("nama_koleksi");
+            itemNamaKategori = itemDetails.getString("nama_kategori");
+            itemTempatPenyimpanan = itemDetails.getString("tempat_penyimpanan");
             String deskripsi = itemDetails.getString("deskripsi");
+            itemKondisi = itemDetails.getString("kondisi");
+            itemNamaPembuat = itemDetails.getString("nama_pembuat");
             String longitude = itemDetails.getString("longtitude");
             String latitude = itemDetails.getString("latitude");
-            String id_prov_pembuatan = itemDetails.getString("id_prov_pembuatan");
-            String id_kab_pembuatan = itemDetails.getString("id_kab_pembuatan");
+            itemProvinsi = itemDetails.getString("id_prov_pembuatan");
+            itemKabupaten = itemDetails.getString("id_kab_pembuatan");
             String id_unit_ukuran = itemDetails.getString("nama_unit_ukuran");
             String panjang = itemDetails.getString("panjang");
             String lebar = itemDetails.getString("lebar");
@@ -273,17 +326,19 @@ public class InfoDetailsActivity extends AppCompatActivity {
             String latLong = latitude + "," + longitude;
 
             String imageUrl = Constants.IMAGE_URL + gambar;
-            mInfoBudaya.setText(budaya);
-            mInfoKategori.setText(kategori);
-            mInfoTempatPenyimpanan.setText(tempat_penyimpanan);
+            mInfoBudaya.setText(itemNamaKoleksi);
+            mInfoKategori.setText(itemNamaKategori);
+            mInfoTempatPenyimpanan.setText(itemTempatPenyimpanan);
+            mInfoPembuat.setText(itemNamaPembuat);
             mInfoDeskripsi.setText(deskripsi);
+            mInfoKondisi.setText(itemKondisi);
             mInfoLatLong.setText(latLong);
-            mInfoProvinsi.setText(id_prov_pembuatan);
-            mInfoKabupaten.setText(id_kab_pembuatan);
+            mInfoProvinsi.setText(itemProvinsi);
+            mInfoKabupaten.setText(itemKabupaten);
             mInfoDimensi.setText(dimensi);
             mInfoTanggalUpdate.setText(tanggal_update);
             mInfoKontributor.setText(kontributor);
-            mInfoBendaTerkait.setText(getString(R.string.info_benda_terkait) + " " + budaya);
+            mInfoBendaTerkait.setText(getString(R.string.info_benda_terkait) + " " + itemNamaKoleksi);
 
             mInfoDetailsLayout.setVisibility(View.VISIBLE);
             Common.hideWaitView(dialog);

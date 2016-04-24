@@ -330,6 +330,18 @@
                 android:layout_marginTop="@dimen/margin_top"
                 android:text="@string/info_benda_terkait" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/berdasarkan" />
+
+            <Spinner
+                android:id="@+id/spinner_kategori"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/category"
+                android:prompt="@string/category_prompt" />
+
             <LinearLayout
                 android:id="@+id/info_related"
                 android:layout_width="match_parent"

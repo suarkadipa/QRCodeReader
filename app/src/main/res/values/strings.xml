@@ -29,7 +29,20 @@
     <string name="empty_data">Data tidak ditemukan</string>
     <string name="info_benda_terkait">Item Terkait dengan Benda</string>
     <string name="cek_lokasi">Cek lokasi</string>
+    <string name="berdasarkan">Berdasarkan</string>
+
+    <string name="category_prompt">Pilih Kategori</string>
+    <string-array name="category">
+        <item>Nama Koleksi</item>
+        <item>Kategori</item>
+        <item>Nama Pembuat</item>
+        <item>Tempat Penyimpanan</item>
+        <item>Kondisi</item>
+        <item>Provinsi</item>
+        <item>Kabupaten</item>
+    </string-array>
 
     <string name="json_item_details_url">getItemDetails.php?id=</string>
     <string name="json_related_item_url">getRelatedItem.php?id=</string>
+    <string name="json_auto_related_item_url">getAutoRelatedItem.php?id=</string>
 </resources>

@@ -48,4 +48,20 @@ public class Constants {
     public static final String BASE_URL = "http://emuseum.16mb.com/emuseum/admin/";
     public static final String SERVICE_URL = BASE_URL + "Mobileserver/";
     public static final String IMAGE_URL = BASE_URL + "gambar/koleksi/";
+
+    public static final String KAT_NAMA_KOLEKSI = "Nama Koleksi";
+    public static final String KAT_KATEGORI = "Kategori";
+    public static final String KAT_NAMA_PEMBUAT = "Nama Pembuat";
+    public static final String KAT_TEMPAT_PENYIMPANAN = "Tempat Penyimpanan";
+    public static final String KAT_KONDISI = "Kondisi";
+    public static final String KAT_PROVINSI = "Provinsi";
+    public static final String KAT_KABUPATEN = "Kabupaten";
+
+    public static final String KAT_OPT_NAMA_KOLEKSI = "tb_koleksi.nama_koleksi";
+    public static final String KAT_OPT_KATEGORI = "tb_koleksi.id_kategori";
+    public static final String KAT_OPT_NAMA_PEMBUAT = "tb_koleksi.nama_pembuat";
+    public static final String KAT_OPT_TEMPAT_PENYIMPANAN = "tb_koleksi.tempat_penyimpanan";
+    public static final String KAT_OPT_KONDISI = "tb_koleksi.kondisi";
+    public static final String KAT_OPT_PROVINSI = "tb_koleksi.id_prov_pembuatan";
+    public static final String KAT_OPT_KABUPATEN = "tb_koleksi.id_kab_pembuatan";
 }
