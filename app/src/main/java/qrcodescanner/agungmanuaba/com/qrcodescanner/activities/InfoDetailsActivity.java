@@ -308,7 +308,7 @@ public class InfoDetailsActivity extends AppCompatActivity {
             String gambar = itemDetails.getString("gambar");
             itemNamaKoleksi = itemDetails.getString("nama_koleksi");
             itemNamaKategori = itemDetails.getString("nama_kategori");
-            itemTempatPenyimpanan = itemDetails.getString("tempat_penyimpanan");
+            itemTempatPenyimpanan = itemDetails.getString("nama_museum");
             String deskripsi = itemDetails.getString("deskripsi");
             itemKondisi = itemDetails.getString("kondisi");
             itemNamaPembuat = itemDetails.getString("nama_pembuat");

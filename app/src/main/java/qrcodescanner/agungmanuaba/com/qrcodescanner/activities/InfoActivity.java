@@ -159,7 +159,7 @@ public class InfoActivity extends AppCompatActivity {
             String gambar = itemDetails.getString("gambar");
             final String budaya = itemDetails.getString("nama_koleksi");
             String kategori = itemDetails.getString("nama_kategori");
-            String tempat_penyimpanan = itemDetails.getString("tempat_penyimpanan");
+            String tempat_penyimpanan = itemDetails.getString("nama_museum");
             String deskripsi = itemDetails.getString("deskripsi");
             final double longitude = itemDetails.getDouble("longtitude");
             final double latitude = itemDetails.getDouble("latitude");
