@@ -334,12 +334,14 @@
                 android:id="@+id/info_berdasarkan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:text="@string/berdasarkan" />
 
             <Spinner
                 android:id="@+id/spinner_kategori"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:entries="@array/category"
                 android:prompt="@string/category_prompt" />
 

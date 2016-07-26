@@ -243,10 +243,6 @@ public class InfoDetailsActivity extends AppCompatActivity {
     }
 
     private void requestManualRelatedItem(String itemId) {
-        // hide spinner and 'berdasarkan' label
-        mInfoBerdasarkan.setVisibility(View.GONE);
-        mSpinnerKategori.setVisibility(View.GONE);
-
         String baseUrl = ApplicationSettings.getServiceUrl(getApplicationContext());
         String url = baseUrl + (getString(R.string.json_related_item_url)) + itemId;
 
@@ -299,11 +295,11 @@ public class InfoDetailsActivity extends AppCompatActivity {
                                         mInfoRelatedLL.addView(mInfoRelatedLayout);
                                     }
                                 } else {
-//                                    setErrorInfoRelatedItem();
-                                    requestAutoRelatedItem();
+                                    setErrorInfoRelatedItem();
                                 }
                             } catch (JSONException ex) {
-                                setErrorInfoRelatedItem();
+//                                setErrorInfoRelatedItem();
+                                requestAutoRelatedItem();
                             } catch (Exception ex) {
                                 setErrorInfoRelatedItem();
                             }
@@ -333,6 +329,10 @@ public class InfoDetailsActivity extends AppCompatActivity {
     }
 
     private void requestAutoRelatedItem() {
+        // show spinner and 'berdasarkan' label
+        mInfoBerdasarkan.setVisibility(View.VISIBLE);
+        mSpinnerKategori.setVisibility(View.VISIBLE);
+
         mSpinnerKategori.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
