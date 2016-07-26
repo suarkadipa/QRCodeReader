@@ -91,44 +91,6 @@ public class InfoDetailsActivity extends AppCompatActivity {
 
         mInfoRelatedLL = (LinearLayout) findViewById(R.id.info_related);
         mSpinnerKategori = (Spinner) findViewById(R.id.spinner_kategori);
-        mSpinnerKategori.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String selectedString = adapterView.getItemAtPosition(i).toString();
-                switch (selectedString) {
-                    case Constants.KAT_NAMA_KOLEKSI:
-                        requestRelatedItem(itemId, Constants.KAT_OPT_NAMA_KOLEKSI, itemNamaKoleksi);
-                        break;
-                    case Constants.KAT_KATEGORI:
-                        requestRelatedItem(itemId, Constants.KAT_OPT_KATEGORI, itemNamaKategori);
-                        break;
-                    case Constants.KAT_NAMA_PEMBUAT:
-                        requestRelatedItem(itemId, Constants.KAT_OPT_NAMA_PEMBUAT, itemNamaPembuat);
-                        break;
-                    case Constants.KAT_TEMPAT_PENYIMPANAN:
-                        requestRelatedItem(itemId, Constants.KAT_OPT_TEMPAT_PENYIMPANAN, itemTempatPenyimpanan);
-                        break;
-                    case Constants.KAT_KONDISI:
-                        requestRelatedItem(itemId, Constants.KAT_OPT_KONDISI, itemKondisi);
-                        break;
-                    case Constants.KAT_PROVINSI:
-                        requestRelatedItem(itemId, Constants.KAT_OPT_PROVINSI, itemProvinsi);
-                        break;
-                    case Constants.KAT_KABUPATEN:
-                        requestRelatedItem(itemId, Constants.KAT_OPT_KABUPATEN, itemKabupaten);
-                        break;
-
-                    default:
-                        requestRelatedItem(itemId, Constants.KAT_OPT_NAMA_KOLEKSI, itemNamaKoleksi);
-                        break;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
         mInfoErrorLayout = (LinearLayout) findViewById(R.id.info_error_layout);
         mTvError = (TextView) findViewById(R.id.info_error_text);
@@ -142,6 +104,7 @@ public class InfoDetailsActivity extends AppCompatActivity {
             dialog = Common.showWaitView(InfoDetailsActivity.this, getString(R.string.mohon_tunggu));
 
             requestItemDetails(itemId);
+            requestManualRelatedItem(itemId);
         }
     }
 
@@ -189,7 +152,7 @@ public class InfoDetailsActivity extends AppCompatActivity {
         }
     }
 
-    private void requestRelatedItem(String itemId, String option, String val) {
+    private void requestAutoRelatedItem(String itemId, String option, String val) {
         String baseUrl = ApplicationSettings.getServiceUrl(getApplicationContext());
         String url = baseUrl + (getString(R.string.json_auto_related_item_url)) + itemId + "&option="+option+"&val="+val;
 
@@ -276,6 +239,134 @@ public class InfoDetailsActivity extends AppCompatActivity {
             setErrorInfoItemDetails();
         }
     }
+
+    private void requestManualRelatedItem(String itemId) {
+        String baseUrl = ApplicationSettings.getServiceUrl(getApplicationContext());
+        String url = baseUrl + (getString(R.string.json_related_item_url)) + itemId;
+
+        try {
+            HttpClient.getInstance().get(InfoDetailsActivity.this, url, new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            super.onSuccess(statusCode, headers, response);
+
+                            try {
+                                JSONArray relatedItemsArray = response.getJSONArray("data");
+                                int arrayLength = relatedItemsArray.length();
+                                if (arrayLength > 0) {
+                                    for (int i = 0; i < arrayLength; i++) {
+                                        JSONObject row = relatedItemsArray.getJSONObject(i);
+                                        final String idKoleksi = row.getString("id_koleksi1");
+                                        String namaKoleksi = row.getString("nama_koleksi");
+                                        String keterangan = row.getString("keterangan");
+
+                                        if (namaKoleksi.isEmpty()) {
+                                            namaKoleksi = getString(R.string.empty_value);
+                                        }
+
+                                        if (keterangan.isEmpty()) {
+                                            keterangan = getString(R.string.empty_value);
+                                        }
+
+                                        // instance new layout for related info
+                                        View mInfoRelatedLayout = getLayoutInflater().inflate(R.layout.info_details_related_item, null);
+                                        mInfoRelatedLayout.setId(i);
+
+                                        TextView mNama = (TextView) mInfoRelatedLayout.findViewById(R.id.info_related_nama);
+
+                                        mNama.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                Intent mapIntent = new Intent(InfoDetailsActivity.this, InfoActivity.class);
+                                                mapIntent.putExtra("id_koleksi", idKoleksi);
+                                                startActivity(mapIntent);
+                                            }
+                                        });
+
+                                        TextView mKeterangan = (TextView) mInfoRelatedLayout.findViewById(R.id.info_related_keterangan);
+
+                                        SpannableString content = new SpannableString(namaKoleksi);
+                                        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+                                        mNama.setText(content);
+                                        mKeterangan.setText(keterangan);
+
+                                        mInfoRelatedLL.addView(mInfoRelatedLayout);
+                                    }
+                                } else {
+//                                    setErrorInfoRelatedItem();
+                                    requestAutoRelatedItem();
+                                }
+                            } catch (JSONException ex) {
+                                setErrorInfoRelatedItem();
+                            } catch (Exception ex) {
+                                setErrorInfoRelatedItem();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers,
+                                              String responseBody, Throwable e) {
+                            Common.toastIt(InfoDetailsActivity.this, e.getMessage());
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, Throwable
+                                throwable, JSONObject errorResponse) {
+                            Common.toastIt(InfoDetailsActivity.this, errorResponse.toString());
+                        }
+                    }
+
+            );
+        } catch (JSONException e) {
+            e.printStackTrace();
+            setErrorInfoItemDetails();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            setErrorInfoItemDetails();
+        }
+    }
+
+    private void requestAutoRelatedItem() {
+        mSpinnerKategori.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String selectedString = adapterView.getItemAtPosition(i).toString();
+                switch (selectedString) {
+                    case Constants.KAT_NAMA_KOLEKSI:
+                        requestAutoRelatedItem(itemId, Constants.KAT_OPT_NAMA_KOLEKSI, itemNamaKoleksi);
+                        break;
+                    case Constants.KAT_KATEGORI:
+                        requestAutoRelatedItem(itemId, Constants.KAT_OPT_KATEGORI, itemNamaKategori);
+                        break;
+                    case Constants.KAT_NAMA_PEMBUAT:
+                        requestAutoRelatedItem(itemId, Constants.KAT_OPT_NAMA_PEMBUAT, itemNamaPembuat);
+                        break;
+                    case Constants.KAT_TEMPAT_PENYIMPANAN:
+                        requestAutoRelatedItem(itemId, Constants.KAT_OPT_TEMPAT_PENYIMPANAN, itemTempatPenyimpanan);
+                        break;
+                    case Constants.KAT_KONDISI:
+                        requestAutoRelatedItem(itemId, Constants.KAT_OPT_KONDISI, itemKondisi);
+                        break;
+                    case Constants.KAT_PROVINSI:
+                        requestAutoRelatedItem(itemId, Constants.KAT_OPT_PROVINSI, itemProvinsi);
+                        break;
+                    case Constants.KAT_KABUPATEN:
+                        requestAutoRelatedItem(itemId, Constants.KAT_OPT_KABUPATEN, itemKabupaten);
+                        break;
+
+                    default:
+                        requestAutoRelatedItem(itemId, Constants.KAT_OPT_NAMA_KOLEKSI, itemNamaKoleksi);
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
 
     private void setErrorInfoRelatedItem() {
         // instance new layout for related info
