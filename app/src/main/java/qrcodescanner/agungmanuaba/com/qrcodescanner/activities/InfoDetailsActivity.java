@@ -64,6 +64,7 @@ public class InfoDetailsActivity extends AppCompatActivity {
     private String itemKondisi;
     private String itemProvinsi;
     private String itemKabupaten;
+    private TextView mInfoBerdasarkan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +89,7 @@ public class InfoDetailsActivity extends AppCompatActivity {
         mInfoKontributor = (TextView) findViewById(R.id.info_kontributor);
         mInfoTanggalUpdate = (TextView) findViewById(R.id.info_tanggal_update);
         mInfoBendaTerkait = (TextView) findViewById(R.id.info_related_title);
+        mInfoBerdasarkan = (TextView) findViewById(R.id.info_berdasarkan);
 
         mInfoRelatedLL = (LinearLayout) findViewById(R.id.info_related);
         mSpinnerKategori = (Spinner) findViewById(R.id.spinner_kategori);
@@ -241,6 +243,10 @@ public class InfoDetailsActivity extends AppCompatActivity {
     }
 
     private void requestManualRelatedItem(String itemId) {
+        // hide spinner and 'berdasarkan' label
+        mInfoBerdasarkan.setVisibility(View.GONE);
+        mSpinnerKategori.setVisibility(View.GONE);
+
         String baseUrl = ApplicationSettings.getServiceUrl(getApplicationContext());
         String url = baseUrl + (getString(R.string.json_related_item_url)) + itemId;
 
