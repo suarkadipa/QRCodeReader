@@ -60,7 +60,7 @@ public class Constants {
     public static final String KAT_OPT_NAMA_KOLEKSI = "tb_koleksi.nama_koleksi";
     public static final String KAT_OPT_KATEGORI = "tb_koleksi.id_kategori";
     public static final String KAT_OPT_NAMA_PEMBUAT = "tb_koleksi.nama_pembuat";
-    public static final String KAT_OPT_TEMPAT_PENYIMPANAN = "tb_koleksi.tempat_penyimpanan";
+    public static final String KAT_OPT_TEMPAT_PENYIMPANAN = "tb_koleksi.id_museum";
     public static final String KAT_OPT_KONDISI = "tb_koleksi.kondisi";
     public static final String KAT_OPT_PROVINSI = "tb_koleksi.id_prov_pembuatan";
     public static final String KAT_OPT_KABUPATEN = "tb_koleksi.id_kab_pembuatan";
