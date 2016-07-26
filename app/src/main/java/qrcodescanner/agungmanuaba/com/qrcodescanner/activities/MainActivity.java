@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
                 Intent intent1 = new Intent(MainActivity.this, InfoDetailsActivity.class);
-                intent1.putExtra("qrcode_id", "K0003");
+                intent1.putExtra("qrcode_id", "K0001");
                 startActivity(intent1);
             }
         });
