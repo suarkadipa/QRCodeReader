@@ -88,32 +88,30 @@ public class InfoMapsActivity extends AppCompatActivity implements GoogleApiClie
 
     @Override
     public void onConnected(Bundle bundle) {
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (mLastLocation != null) {
-            //getting the latitude value
-//            double latitudeValue=mLastLocation.getLatitude();
-            double latitudeValue = mLatitude;
-            Log.d("value", "" + latitudeValue);
-            //getting the longitude value
-//            double longitudeValue=mLastLocation.getLongitude();
-            double longitudeValue = mLongitude;
-            if (checkServices()) {
-                if (initMap()) {
+        double latitudeValue = mLatitude;
+        double longitudeValue = mLongitude;
 
-                    gotoLocation(latitudeValue, longitudeValue, 15);
+        // show its location
+        showLocation(latitudeValue, longitudeValue);
+    }
 
-                    // Other supported types include: MAP_TYPE_NORMAL,
-                    // MAP_TYPE_TERRAIN, MAP_TYPE_HYBRID and MAP_TYPE_NONE
-                    mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
-                    //mMap.setMyLocationEnabled(true);
+    private void showLocation(double latitudeValue, double longitudeValue) {
+        if (checkServices()) {
+            if (initMap()) {
 
-                    //Setting up the marker
-                    MarkerOptions marker = new MarkerOptions()
-                            .title(mItemName)
-                            .position(new LatLng(latitudeValue, longitudeValue))
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-                    mMap.addMarker(marker);
-                }
+                gotoLocation(latitudeValue, longitudeValue, 15);
+
+                // Other supported types include: MAP_TYPE_NORMAL,
+                // MAP_TYPE_TERRAIN, MAP_TYPE_HYBRID and MAP_TYPE_NONE
+                mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+                //mMap.setMyLocationEnabled(true);
+
+                //Setting up the marker
+                MarkerOptions marker = new MarkerOptions()
+                        .title(mItemName)
+                        .position(new LatLng(latitudeValue, longitudeValue))
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                mMap.addMarker(marker);
             }
         }
     }
