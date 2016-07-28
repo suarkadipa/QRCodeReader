@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage("GPS Anda dalam posisi Off. Hidupkan GPS agar pengecekan lokasi benda koleksi berjalan dengan baik.")
                 .setCancelable(false)
-                .setPositiveButton("Settings untuk menghidupkan GPS",
+                .setPositiveButton("Hidupkan",
                         new DialogInterface.OnClickListener(){
                             public void onClick(DialogInterface dialog, int id){
                                 Intent callGPSSettingIntent = new Intent(
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                                 startActivity(callGPSSettingIntent);
                             }
                         });
-        alertDialogBuilder.setNegativeButton("Batal",
+        alertDialogBuilder.setNegativeButton("Abaikan",
                 new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int id){
                         dialog.cancel();
