@@ -36,7 +36,6 @@ import qrcodescanner.agungmanuaba.com.qrcodescanner.helpers.HttpClient;
 public class InfoDetailsActivity extends AppCompatActivity {
     private String itemId;
     private SmartImageView mInfoGambar;
-    private TextView mInfoBudaya;
     private TextView mInfoKategori;
     private TextView mInfoDeskripsi;
     private TextView mInfoPembuat;
@@ -46,7 +45,6 @@ public class InfoDetailsActivity extends AppCompatActivity {
     private TextView mInfoProvinsi;
     private TextView mInfoKabupaten;
     private TextView mInfoKondisi;
-    private TextView mInfoLatLong;
     private TextView mInfoKontributor;
     private TextView mInfoTanggalUpdate;
     private ProgressDialog dialog;
@@ -64,7 +62,7 @@ public class InfoDetailsActivity extends AppCompatActivity {
     private String itemKondisi;
     private String itemProvinsi;
     private String itemKabupaten;
-    private TextView mInfoBerdasarkan;
+    private TextView mInfoTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,9 +71,9 @@ public class InfoDetailsActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.activity_open_translate,
                 R.anim.slide_right_out);
 
+        mInfoTitle = (TextView) findViewById(R.id.title_info_detail_text);
         mInfoDetailsLayout = (ScrollView) findViewById(R.id.info_details_layout);
         mInfoGambar = (SmartImageView) findViewById(R.id.info_gambar);
-        mInfoBudaya = (TextView) findViewById(R.id.info_budaya);
         mInfoKategori = (TextView) findViewById(R.id.info_kategori);
         mInfoDeskripsi = (TextView) findViewById(R.id.info_deskripsi);
         mInfoPembuat = (TextView) findViewById(R.id.info_pembuat);
@@ -85,11 +83,9 @@ public class InfoDetailsActivity extends AppCompatActivity {
         mInfoProvinsi = (TextView) findViewById(R.id.info_provinsi);
         mInfoKabupaten = (TextView) findViewById(R.id.info_kabupaten);
         mInfoKondisi = (TextView) findViewById(R.id.info_kondisi);
-        mInfoLatLong = (TextView) findViewById(R.id.info_lat_long);
         mInfoKontributor = (TextView) findViewById(R.id.info_kontributor);
         mInfoTanggalUpdate = (TextView) findViewById(R.id.info_tanggal_update);
         mInfoBendaTerkait = (TextView) findViewById(R.id.info_related_title);
-        mInfoBerdasarkan = (TextView) findViewById(R.id.info_berdasarkan);
 
         mInfoRelatedLL = (LinearLayout) findViewById(R.id.info_related);
         mSpinnerKategori = (Spinner) findViewById(R.id.spinner_kategori);
@@ -330,7 +326,6 @@ public class InfoDetailsActivity extends AppCompatActivity {
 
     private void requestAutoRelatedItem() {
         // show spinner and 'berdasarkan' label
-        mInfoBerdasarkan.setVisibility(View.VISIBLE);
         mSpinnerKategori.setVisibility(View.VISIBLE);
 
         mSpinnerKategori.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -409,8 +404,8 @@ public class InfoDetailsActivity extends AppCompatActivity {
             String deskripsi = itemDetails.getString("deskripsi");
             itemKondisi = itemDetails.getString("kondisi");
             itemNamaPembuat = itemDetails.getString("nama_pembuat");
-            String longitude = itemDetails.getString("longtitude");
-            String latitude = itemDetails.getString("latitude");
+            final double longitude = itemDetails.getDouble("longtitude");
+            final double latitude = itemDetails.getDouble("latitude");
             itemProvinsi = itemDetails.getString("id_prov_pembuatan");
             itemKabupaten = itemDetails.getString("id_kab_pembuatan");
             String id_unit_ukuran = itemDetails.getString("nama_unit_ukuran");
@@ -423,19 +418,32 @@ public class InfoDetailsActivity extends AppCompatActivity {
             String latLong = latitude + "," + longitude;
 
             String imageUrl = Constants.IMAGE_URL + gambar;
-            mInfoBudaya.setText(itemNamaKoleksi);
+            mInfoTitle.setText(itemNamaKoleksi);
             mInfoKategori.setText(itemNamaKategori);
             mInfoTempatPenyimpanan.setText(itemTempatPenyimpanan);
             mInfoPembuat.setText(itemNamaPembuat);
             mInfoDeskripsi.setText(deskripsi);
             mInfoKondisi.setText(itemKondisi);
-            mInfoLatLong.setText(latLong);
             mInfoProvinsi.setText(itemProvinsi);
             mInfoKabupaten.setText(itemKabupaten);
             mInfoDimensi.setText(dimensi);
             mInfoTanggalUpdate.setText(tanggal_update);
             mInfoKontributor.setText(kontributor);
             mInfoBendaTerkait.setText(getString(R.string.info_benda_terkait) + " " + itemNamaKoleksi);
+
+            SpannableString content = new SpannableString(getString(R.string.cek_lokasi));
+            content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+            mInfoBendaTerkait.setText(content);
+            mInfoBendaTerkait.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent mapIntent = new Intent(InfoDetailsActivity.this, InfoMapsActivity.class);
+                    mapIntent.putExtra("item_name", itemNamaKoleksi);
+                    mapIntent.putExtra("latitude", latitude);
+                    mapIntent.putExtra("longitude", longitude);
+                    startActivity(mapIntent);
+                }
+            });
 
             mInfoDetailsLayout.setVisibility(View.VISIBLE);
             Common.hideWaitView(dialog);

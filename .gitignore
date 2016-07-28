@@ -63,3 +63,5 @@ _sandbox
 
 # Gradle
 gradle.properties
+build.gradle
+gradle/wrapper/gradle-wrapper.properties
