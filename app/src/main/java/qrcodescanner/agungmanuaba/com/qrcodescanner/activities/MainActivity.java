@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         });
 
         // enable this to check the gps availability
-//        checkGPSAvailability();
+        checkGPSAvailability();
     }
 
     @Override
@@ -127,9 +127,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     private void showGPSDisabledAlertToUser(){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("GPS is disabled in your device. Would you like to enable it?")
+        alertDialogBuilder.setMessage("GPS Anda dalam posisi Off. Hidupkan GPS agar pengecekan lokasi benda koleksi berjalan dengan baik.")
                 .setCancelable(false)
-                .setPositiveButton("Goto Settings Page To Enable GPS",
+                .setPositiveButton("Settings untuk menghidupkan GPS",
                         new DialogInterface.OnClickListener(){
                             public void onClick(DialogInterface dialog, int id){
                                 Intent callGPSSettingIntent = new Intent(
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                                 startActivity(callGPSSettingIntent);
                             }
                         });
-        alertDialogBuilder.setNegativeButton("Cancel",
+        alertDialogBuilder.setNegativeButton("Batal",
                 new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int id){
                         dialog.cancel();
