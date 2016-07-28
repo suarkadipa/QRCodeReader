@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">E-Museum</string>
     <string name="action_settings">Settings</string>
+    <string name="action_map">Ke Benda</string>
     <string name="title">E-Museum Jaringan Semantik</string>
     <string name="scan">Scan QR-Code</string>
     <string name="quit">Keluar</string>

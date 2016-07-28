@@ -5,6 +5,11 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -32,6 +37,27 @@ public class InfoMapsActivity extends AppCompatActivity implements GoogleApiClie
     private String mItemName;
     private double mLatitude;
     private double mLongitude;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_map, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.id_menu_map:
+                gotoLocation(mLatitude, mLongitude, 15);
+                break;
+//            case R.id.menuitem2:
+//                Toast.makeText(this, "Menu item 2 selected", Toast.LENGTH_SHORT).show();
+//                break;
+        }
+        return true;
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +108,9 @@ public class InfoMapsActivity extends AppCompatActivity implements GoogleApiClie
         if (mMap == null) {
             SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
             mMap = mapFragment.getMap();
+
+            // to enable button show my location
+//            mMap.setMyLocationEnabled(true);
         }
         return (mMap != null);
     }
