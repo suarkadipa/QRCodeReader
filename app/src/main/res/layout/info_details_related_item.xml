@@ -6,12 +6,12 @@
 
     <TextView
         android:id="@+id/info_related_nama"
+        style="@style/info_text_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_left"
         android:clickable="true"
-        android:text="@string/empty_value"
-        android:textColor="@color/wallet_holo_blue_light" />
+        android:text="@string/empty_value" />
 
     <TextView
         android:id="@+id/info_related_keterangan"

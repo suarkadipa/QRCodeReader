@@ -5,7 +5,6 @@
     <string name="title">E-Museum Jaringan Semantik</string>
     <string name="scan">Scan QR-Code</string>
     <string name="quit">Keluar</string>
-    <string name="detail_info">Detail Informasi</string>
     <string name="yes">YES</string>
     <string name="no">NO</string>
     <string name="ok">OK</string>
@@ -28,9 +27,9 @@
     <string name="mohon_tunggu">Mohon tunggu...</string>
     <string name="empty_value">Data kosong</string>
     <string name="empty_data">Data tidak ditemukan</string>
-    <string name="info_benda_terkait">Item Terkait dengan Benda</string>
     <string name="cek_lokasi">Cek lokasi</string>
-    <string name="berdasarkan">Berdasarkan</string>
+    <string name="cek_keterkaitan">Cek keterkaitan</string>
+    <string name="tes_fungsi">Tes fungsi</string>
 
     <string name="category_prompt">Pilih Kategori</string>
     <string-array name="category">

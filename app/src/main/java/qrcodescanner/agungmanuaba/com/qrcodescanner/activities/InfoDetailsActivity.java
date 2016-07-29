@@ -63,6 +63,7 @@ public class InfoDetailsActivity extends AppCompatActivity {
     private String itemProvinsi;
     private String itemKabupaten;
     private TextView mInfoTitle;
+    private Button mBtnInfoKeterkaitan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +87,7 @@ public class InfoDetailsActivity extends AppCompatActivity {
         mInfoKontributor = (TextView) findViewById(R.id.info_kontributor);
         mInfoTanggalUpdate = (TextView) findViewById(R.id.info_tanggal_update);
         mInfoBendaTerkait = (TextView) findViewById(R.id.info_related_title);
+        mBtnInfoKeterkaitan = (Button) findViewById(R.id.info_keterkaitan);
 
         mInfoRelatedLL = (LinearLayout) findViewById(R.id.info_related);
         mSpinnerKategori = (Spinner) findViewById(R.id.spinner_kategori);
@@ -102,7 +104,13 @@ public class InfoDetailsActivity extends AppCompatActivity {
             dialog = Common.showWaitView(InfoDetailsActivity.this, getString(R.string.mohon_tunggu));
 
             requestItemDetails(itemId);
-            requestManualRelatedItem(itemId);
+
+            mBtnInfoKeterkaitan.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    requestManualRelatedItem(itemId);
+                }
+            });
         }
     }
 
@@ -186,21 +194,9 @@ public class InfoDetailsActivity extends AppCompatActivity {
                                         mInfoRelatedLayout.setId(i);
 
                                         TextView mNama = (TextView) mInfoRelatedLayout.findViewById(R.id.info_related_nama);
-
-                                        mNama.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                Intent mapIntent = new Intent(InfoDetailsActivity.this, InfoActivity.class);
-                                                mapIntent.putExtra("id_koleksi", idKoleksi);
-                                                startActivity(mapIntent);
-                                            }
-                                        });
-
                                         TextView mKeterangan = (TextView) mInfoRelatedLayout.findViewById(R.id.info_related_keterangan);
 
-                                        SpannableString content = new SpannableString(namaKoleksi);
-                                        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-                                        mNama.setText(content);
+                                        mNama.setText(namaKoleksi);
                                         mKeterangan.setText(keterangan);
 
                                         mInfoRelatedLL.addView(mInfoRelatedLayout);
@@ -239,6 +235,9 @@ public class InfoDetailsActivity extends AppCompatActivity {
     }
 
     private void requestManualRelatedItem(String itemId) {
+        // remove info related layout first to prevent unwanted behaviour
+        mInfoRelatedLL.removeAllViews();
+
         String baseUrl = ApplicationSettings.getServiceUrl(getApplicationContext());
         String url = baseUrl + (getString(R.string.json_related_item_url)) + itemId;
 
@@ -271,21 +270,9 @@ public class InfoDetailsActivity extends AppCompatActivity {
                                         mInfoRelatedLayout.setId(i);
 
                                         TextView mNama = (TextView) mInfoRelatedLayout.findViewById(R.id.info_related_nama);
-
-                                        mNama.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                Intent mapIntent = new Intent(InfoDetailsActivity.this, InfoActivity.class);
-                                                mapIntent.putExtra("id_koleksi", idKoleksi);
-                                                startActivity(mapIntent);
-                                            }
-                                        });
-
                                         TextView mKeterangan = (TextView) mInfoRelatedLayout.findViewById(R.id.info_related_keterangan);
 
-                                        SpannableString content = new SpannableString(namaKoleksi);
-                                        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-                                        mNama.setText(content);
+                                        mNama.setText(namaKoleksi);
                                         mKeterangan.setText(keterangan);
 
                                         mInfoRelatedLL.addView(mInfoRelatedLayout);
@@ -294,7 +281,6 @@ public class InfoDetailsActivity extends AppCompatActivity {
                                     setErrorInfoRelatedItem();
                                 }
                             } catch (JSONException ex) {
-//                                setErrorInfoRelatedItem();
                                 requestAutoRelatedItem();
                             } catch (Exception ex) {
                                 setErrorInfoRelatedItem();
@@ -431,7 +417,6 @@ public class InfoDetailsActivity extends AppCompatActivity {
             mInfoTanggalUpdate.setText(tanggal_update);
             mInfoTeknikPembuatan.setText(teknikPembuatan);
             mInfoKontributor.setText(kontributor);
-            mInfoBendaTerkait.setText(getString(R.string.info_benda_terkait) + " " + itemNamaKoleksi);
 
             SpannableString content = new SpannableString(getString(R.string.cek_lokasi));
             content.setSpan(new UnderlineSpan(), 0, content.length(), 0);

@@ -272,12 +272,11 @@
                 android:textColor="@android:color/holo_blue_light"
                 android:text="@string/cek_lokasi" />
 
-            <TextView
-                android:id="@+id/info_berdasarkan"
+            <Button
+                android:id="@+id/info_keterkaitan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:text="@string/berdasarkan" />
+                android:text="@string/cek_keterkaitan" />
 
             <Spinner
                 android:id="@+id/spinner_kategori"

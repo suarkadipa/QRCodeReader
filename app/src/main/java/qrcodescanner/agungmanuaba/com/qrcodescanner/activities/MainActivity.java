@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,8 +28,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+
+        // to show action bar to test action
+        enableActionTest(true);
 
         scanBtn = (Button) findViewById(R.id.scan_button);
         quitBtn = (Button) findViewById(R.id.quit_button);
@@ -40,8 +42,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
                 Intent intent1 = new Intent(MainActivity.this, InfoDetailsActivity.class);
                 intent1.putExtra("qrcode_id", "K0001");
                 startActivity(intent1);
@@ -50,6 +50,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         // enable this to check the gps availability
         checkGPSAvailability();
+    }
+
+    void enableActionTest(boolean isEnabled){
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
     @Override
@@ -68,6 +73,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent1 = new Intent(MainActivity.this, InfoDetailsActivity.class);
+            intent1.putExtra("qrcode_id", "K0001");
+            startActivity(intent1);
+
             return true;
         }
 
