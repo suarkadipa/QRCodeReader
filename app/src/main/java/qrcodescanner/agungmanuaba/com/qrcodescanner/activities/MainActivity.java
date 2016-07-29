@@ -38,16 +38,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         scanBtn.setOnClickListener(this);
         quitBtn.setOnClickListener(this);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent1 = new Intent(MainActivity.this, InfoDetailsActivity.class);
-                intent1.putExtra("qrcode_id", "K0001");
-                startActivity(intent1);
-            }
-        });
-
         // enable this to check the gps availability
         checkGPSAvailability();
     }
