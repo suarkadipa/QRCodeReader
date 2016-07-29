@@ -406,8 +406,8 @@ public class InfoDetailsActivity extends AppCompatActivity {
             itemNamaPembuat = itemDetails.getString("nama_pembuat");
             final double longitude = itemDetails.getDouble("longtitude");
             final double latitude = itemDetails.getDouble("latitude");
-            itemProvinsi = itemDetails.getString("id_prov_pembuatan");
-            itemKabupaten = itemDetails.getString("id_kab_pembuatan");
+            itemProvinsi = itemDetails.getString("nama_provinsi");
+            itemKabupaten = itemDetails.getString("nama_kabupaten");
             String id_unit_ukuran = itemDetails.getString("nama_unit_ukuran");
             String panjang = itemDetails.getString("panjang");
             String lebar = itemDetails.getString("lebar");
@@ -416,6 +416,7 @@ public class InfoDetailsActivity extends AppCompatActivity {
             String kontributor = itemDetails.getString("username");
             String dimensi = panjang + "/" + lebar + "/" + tinggi + " " + id_unit_ukuran;
             String latLong = latitude + "," + longitude;
+            String teknikPembuatan = itemDetails.getString("teknik_pembuatan");
 
             String imageUrl = Constants.IMAGE_URL + gambar;
             mInfoTitle.setText(itemNamaKoleksi);
@@ -428,6 +429,7 @@ public class InfoDetailsActivity extends AppCompatActivity {
             mInfoKabupaten.setText(itemKabupaten);
             mInfoDimensi.setText(dimensi);
             mInfoTanggalUpdate.setText(tanggal_update);
+            mInfoTeknikPembuatan.setText(teknikPembuatan);
             mInfoKontributor.setText(kontributor);
             mInfoBendaTerkait.setText(getString(R.string.info_benda_terkait) + " " + itemNamaKoleksi);
 
